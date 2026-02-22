@@ -1,0 +1,57 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# Kompilowane pliki
+*.class
+*.jar
+!gradle-wrapper.jar
+
+# Logi
+*.log
+logs/
+
+# System operacyjny
+.DS_Store
+Thumbs.db
+
+# Lokalna konfiguracja
+application-local.properties
+application-local.yml
+application-local.yaml
+application-dev.properties
+application-dev.yml
+application-dev.yaml
+.env
+
+# Katalogi środowiska
+.env/
+.envrc
+
+# Katalog IDE specific
+.vscode/
+.fleet/
+bin/
+tmp/
+
+# Pliki tymczasowe
+*.tmp
+*.bak
+*.swp
+*~.nib
+*.hprof
+
+# Katalog z zależnościami
+.kotlin/

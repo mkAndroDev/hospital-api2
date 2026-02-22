@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: er-postgres
+    environment:
+      POSTGRES_DB: er_db
+      POSTGRES_USER: er_user
+      POSTGRES_PASSWORD: er_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U er_user -d er_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: er-service
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/er_db
+      DB_USER: er_user
+      DB_PASSWORD: er_password
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

@@ -1,0 +1,67 @@
+### 1. Login as admin
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+> {% client.global.set("auth_token", response.body.token); %}
+
+### 2. Login as doctor
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "username": "doctor",
+  "password": "doctor123"
+}
+
+### 3. Get current user info (requires authentication)
+GET http://localhost:8080/auth/me
+Authorization: Bearer {{auth_token}}
+
+### 4. Register new user (ADMIN only)
+POST http://localhost:8080/auth/register
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "username": "nurse1",
+  "password": "nurse123",
+  "fullName": "Nurse Mary Johnson",
+  "role": "NURSE"
+}
+
+### 5. Get all users (ADMIN only)
+GET http://localhost:8080/auth/users
+Authorization: Bearer {{auth_token}}
+
+### 6. Admit a patient (requires authentication)
+POST http://localhost:8080/patients
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "pesel": "12345678901",
+  "condition": "RED"
+}
+
+### 7. Handle patient (requires authentication)
+PUT http://localhost:8080/patients/1/handle
+Authorization: Bearer {{auth_token}}
+
+### 8. Get all patients (requires authentication)
+GET http://localhost:8080/patients
+Authorization: Bearer {{auth_token}}
+
+### 9. Get NEW patients (requires authentication)
+GET http://localhost:8080/patients/new
+Authorization: Bearer {{auth_token}}
+
+### 10. Try accessing without token (should fail with 401)
+GET http://localhost:8080/patients/new
+*/
